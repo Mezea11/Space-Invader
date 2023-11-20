@@ -5,14 +5,13 @@ let ctx = canvas.getContext("2d");
 
 //Board columns and rows
 let tileSize = 32;
-let rows = 16;
+let rows = 24;
 let columns = 16;
 
 let board;
 let boardWidth = tileSize * columns; // 32 * 16
 let boardHeight = tileSize * rows; // 32 * 16
 let context;
-
 
 // SHIP/PLAYER
 let shipWidth = tileSize * 2;
@@ -30,6 +29,7 @@ let ship =  {
 //Ship IMAGE
 let shipImg;
 let shipVelocityX = tileSize; // Ship moving speed = One tile
+let shipVelocityY = tileSize;
 
 //Aliens IMAGE
 let alienArray = [];
@@ -48,9 +48,10 @@ let alienVelocityX = 2; // Alien movement speed
 let bulletArray = [];
 let bulletVelocityY = -10; // Bullet movement speed
 
-//SCORE
+//SCORE & LVLCOUNTER
 let score = 0;
 let gameOver = false;
+let lvlCounter = 1;
 
 ///////////////////////////////////////////////////////////////////
 // GAME FUNCTION
@@ -85,12 +86,14 @@ function update() {
 
     if (gameOver) {
         context.fillStyle="Red";
-        context.font="30px Helvetica"
+        context.font="bold 30px Helvetica"
         let gameOverText = "GAME OVER";
         let textWidth = context.measureText(gameOverText).width;
         let textY = (boardWidth - textWidth) / 2;
-        let textX = boardHeight / 3.5;
+        let textX = boardHeight / 5;
         context.fillText(gameOverText, textX, textY);
+        context.fillText("Level: " + lvlCounter, textX + 35, textY + 50);
+        lvlCounter = 1;
         return;
     }
 
@@ -163,6 +166,7 @@ function update() {
         alienArray = [];
         bulletArray = [];
         createAliens();
+        lvlCounter += 1;
     }
 
 
@@ -172,7 +176,6 @@ function update() {
     context.fillText(score, 5, 20);
 
 }
-
 
 
 // MOVEMENT FUNCTION
@@ -185,6 +188,12 @@ function moveShip(e) {
     }
     else if (e.code == "ArrowRight"  && ship.x + shipVelocityX + ship.width <= board.width) {
         ship.x += shipVelocityX; // Move right one tile
+    }
+    else if (e.code == "ArrowUp" && ship.y - shipVelocityY >= 0) {
+        ship.y -= shipVelocityY; // Move up one tile
+    }
+    else if (e.code == "ArrowDown" && ship.y + shipVelocityY + ship.height <= board.height) {
+        ship.y += shipVelocityY; // Move down one tile
     }
 }
 
