@@ -5,18 +5,65 @@ body {
     flex-direction: column;
     font-family: Arial, Helvetica, sans-serif;
     background-color: whitesmoke;
+    overflow: visible;
+    margin: 0;
+    background-image: url(Assets/star-background.png);
+    background-repeat: repeat;
+    opacity: 95%;
+}
+
+.mothership-img {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%);
+    width: 30rem;
+    height: auto;
+    z-index: 1;
+}
+
+.mothership-img img {
+    max-width: 100%;
+    height: auto;
 }
 
 .game-title {
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 1;
+    margin-bottom: 7.09rem;
+    margin-top: 3rem;
+    color: white;
+    background-color: black;
+    text-decoration: underline;
 }
 
 
 #board {
-    border: 2px solid black;
+    margin: 0;
+    border: 2px solid white;
     display: flex;
     background-color: black;
+    z-index: 0;
 }
 
+.restart-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    border: 1px solid black;
+    border-radius: 12px;
+    font-size: 24px;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    transition: transform 0.1s ease-in-out, filter 0.1s ease-in-out;
+    cursor: pointer;
+    
+}
+
+.restart-button:hover {
+    transform: scale(1.1);
+    filter: brightness(1.5);
+}
